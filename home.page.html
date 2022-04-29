@@ -1,0 +1,96 @@
+<!-- Creating the Header -->
+<!-- Header and the current date -->
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-item lines="none">
+      <ion-label style="font-weight: 800;font-size: 3em; color: #a3a5a9">
+        Today's To Do List
+        <p style="font-weight: 400;color: #135c87 ;">{{today | date:'fullDate'}}</p>
+        <p style="font-weight: 400;color: #135c87 ;">{{today | date:'shortTime'}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+
+  <ion-card *ngFor="let item of todoList; let i = index" class="ion-margin">
+    <ion-card-header>
+
+<!-- Sets the priority colors for the tasks-->      
+      <ion-card-subtitle [style.color]="item.value.itemPriority === 'high' ? 'red' : (item.value.itemPriority === 'low' ? 'green' : 'yellow')">
+        {{item.value.itemCategory}}
+      </ion-card-subtitle>
+
+<!-- Sets each color and size of the bubble, defaults to middle priority-->
+      <ion-item>
+        <ion-icon *ngIf="item.value.itemPriority === 'high'" color="danger" size="medium" name="ellipse"></ion-icon>
+        <ion-icon *ngIf="item.value.itemPriority === 'low'" color="success" size="small" name="ellipse"></ion-icon>
+        <ion-icon *ngIf="item.value.itemPriority === 'middle'" color="warning" size="small" name="ellipse"></ion-icon>
+        <ion-label> {{ item.value.itemName}}</ion-label>
+      </ion-item>
+
+    </ion-card-header>
+
+<!-- Shows the due date of the task-->
+    <ion-card-content>
+      <ion-label>Due {{item.value.itemDueDate | date:'fullDate'}}</ion-label>
+      <ion-label> at {{item.value.itemDueDate | date:'shortTime'}}</ion-label>
+    </ion-card-content>
+
+<!-- Shows the status of the task-->    
+    <ion-card-subtitle>
+      <!--<ion-progress-bar *ngIf="item.value.itemstatus === 'twentyfive'" value="0.25"></ion-progress-bar>
+      <ion-progress-bar *ngIf="item.value.itemstatus === 'fifty" value="0.50"></ion-progress-barn>
+      <ion-progress-bar *ngIf="item.value.itemstatus === 'seventyfive'" value="0.75"></ion-progress-bar>-->
+      <ion-label>Task Status:</ion-label>
+      <ion-progress-bar [value]="item.value.itemstatus"></ion-progress-bar>
+    </ion-card-subtitle>
+
+    <ion-row>
+    
+<!-- Allows user to edit or delete the tasks-->
+      <ion-item button (click)="update(item)">
+        <ion-icon name="create-outline"></ion-icon>
+        <p>Edit Task</p>
+      </ion-item>
+
+      <ion-item button (click)="delete(item.key)">
+        <ion-icon name="trash-outline"></ion-icon>
+        <p>Delete Task</p>
+      </ion-item>
+    </ion-row>
+
+      <!--<ion-item button (click)="shareFacebook(item)">
+        <ion-icon name="send"></ion-icon>
+        <p>Share via Facebook</p>
+      </ion-item>
+    </ion-row>
+
+      <ion-item button (click)="shareTwitter(item)">
+        <ion-icon name="send"></ion-icon>
+        <p>Share via Twitter</p>
+      </ion-item>
+    </ion-row>-->
+
+    <!--<ion-item button (click)="sShare(item)">
+        <ion-icon name="share"></ion-icon>
+        <p>Share Task</p>
+      </ion-item>
+    </ion-row>-->
+
+ <!--<ion-button expand="full" (click)="shareTwitter()">Share on Twitter</ion-button>-->
+    <!--<ion-button expand="full" (click)="shareEmail()">Share by Email</ion-button>-->
+    <!--<ion-button expand="full" (click)="shareFacebook()">Share on Facebook</ion-button>-->
+<!-- unlike most apps Twitter doesn't like it when you use an array to pass multiple files as the second param -->
+
+
+  </ion-card>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addNewItem()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+

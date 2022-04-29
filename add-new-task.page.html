@@ -1,0 +1,79 @@
+<!-- Creates a New Task Pop Up-->
+<ion-header class="ion-no-border">
+  <ion-toolbar >
+<!-- Adds the title to the top of the pop up-->
+    <ion-title>Add A New To Do Task</ion-title>
+    <ion-icon name="close" slot="end" size="large" class="ion-padding" (click)="dismis()"></ion-icon>
+  </ion-toolbar>
+
+</ion-header>
+
+<!-- Creates header name for the pop up with the ability to add the task name and details-->
+<ion-content >
+  <ion-card class="ion-align-self-center" >
+    <ion-item>
+      <ion-textarea [(ngModel)]="itemName"  placeholder="Task Name"></ion-textarea>
+   </ion-item>
+
+   <ion-item>
+    <ion-textarea [(ngModel)]="iteminfo"  placeholder="Information about the Task"></ion-textarea>
+ </ion-item>
+ 
+    <ion-item>
+      <ion-icon name="speedometer"slot="start"></ion-icon>
+      <ion-label >Task Status</ion-label>
+      <ion-select [(ngModel)]="itemstatus">
+        <ion-select-option value="0.0">0% Done</ion-select-option>
+        <ion-select-option value="0.25">25% Done</ion-select-option>
+        <ion-select-option value="0.50" selected>50% Done</ion-select-option>
+        <ion-select-option value="0.75">75% Done</ion-select-option>
+        <ion-select-option value="1.00" selected>100% DONE!</ion-select-option>
+        </ion-select>
+    </ion-item>
+
+
+<!--Allows user to set the priority of the task-->
+   <ion-item>
+    <ion-icon name="alarm"slot="start"></ion-icon>
+     <ion-label >Priority</ion-label>
+     <ion-select [(ngModel)]="itemPriority">
+       <ion-select-option value="low">Low</ion-select-option>
+       <ion-select-option value="middle">Middle</ion-select-option>
+       <ion-select-option value="high" selected>High</ion-select-option>
+      </ion-select>
+   </ion-item>
+
+<!-- Allows user to create due date for tasks -->
+   <ion-item>
+     <ion-icon name="calendar-outline"slot="start"></ion-icon>
+     <ion-label >Due Date </ion-label>
+     <ion-datetime [(ngModel)]="itemDueDate"  displayFormat="D MMM YYYY H:mm"></ion-datetime>
+   </ion-item>
+ 
+<!-- Create the Category for the task -->
+   <ion-item>
+     <ion-icon name="pricetag-outline" slot="start"></ion-icon>
+     <ion-label> Category</ion-label>
+     <span>{{categorySelectedCategory}}</span>
+   </ion-item>
+
+<!-- Create the category associated coloring-->
+   <ion-item>
+     <ion-chip  *ngFor="let tag of categories; let i = index" color="secondary" outline="true" (click)="selectCategory(i)">
+       <ion-label color="secondary">{{tag}}</ion-label>
+     </ion-chip>
+     <ion-chip color="primary" outline="true">
+       <ion-label color="secondary">new</ion-label>
+       <ion-button fill="clear">
+         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+       </ion-button>
+     </ion-chip>
+   </ion-item>
+
+   <ion-button class="ion-margin" expand="block" (click)="add()">Add Task</ion-button>
+
+  </ion-card>
+ 
+
+
+</ion-content>
